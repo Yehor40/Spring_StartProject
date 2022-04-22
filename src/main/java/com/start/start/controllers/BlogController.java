@@ -16,7 +16,7 @@
     private PostRepo postRepo;
 
         @GetMapping("/blog")
-        public String main(Model model) {
+        public String Blogmain(Model model) {
             //kindda hello world
             model.addAttribute("title","Start project text");
             return "blog";
