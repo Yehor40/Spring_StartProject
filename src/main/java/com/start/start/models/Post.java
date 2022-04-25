@@ -33,6 +33,9 @@ public class Post {
         return anons;
     }
 
+
+    public Post() {
+    }
     public void setAnons(String anonce) {
         this.anons = anonce;
     }
@@ -51,5 +54,14 @@ public class Post {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+
+    public Post(String title, String anons, String text) {
+
+        this.title = title;
+        this.anons = anons;
+        this.text = text;
+
     }
 }

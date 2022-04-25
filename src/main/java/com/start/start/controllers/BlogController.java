@@ -5,6 +5,8 @@
     import org.springframework.stereotype.Controller;
     import org.springframework.ui.Model;
     import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.RequestParam;
 
     import java.util.List;
 
@@ -31,4 +33,17 @@
             return "main";
 
         }
+        @GetMapping("/main/add")
+        public String Addtext(Model model) {
+            return "main-add";
+
+        }
+        @PostMapping("/main/add")
+        public String addtext(@RequestParam String title,@RequestParam String anons,@RequestParam String text, Model model) {
+            Post post = new Post(title,anons,text);
+            postRepo.save(post);
+            return "redirect:/main";
+
+        }
+
     }
