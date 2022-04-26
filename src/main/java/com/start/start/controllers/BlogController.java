@@ -5,10 +5,13 @@
     import org.springframework.stereotype.Controller;
     import org.springframework.ui.Model;
     import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.PathVariable;
     import org.springframework.web.bind.annotation.PostMapping;
     import org.springframework.web.bind.annotation.RequestParam;
 
+    import java.util.ArrayList;
     import java.util.List;
+    import java.util.Optional;
 
 
     @Controller
@@ -45,5 +48,13 @@
             return "redirect:/main";
 
         }
+        @GetMapping("/main/{id}")
+        public String More(@PathVariable(value = "id") long id, Model model) {
+           Optional<Post> post = postRepo.findById(id);
+            ArrayList<Post> p = new ArrayList<>();
+            post.ifPresent(p::add);
+            model.addAttribute("post",p);
+            return "more";
 
+        }
     }
