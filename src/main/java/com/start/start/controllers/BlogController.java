@@ -36,13 +36,15 @@
             return "main";
 
         }
-        @GetMapping("/main/add")
+       @GetMapping("/main/add")
         public String Addtext(Model model) {
             return "main-add";
 
         }
+
         @PostMapping("/main/add")
-        public String addtext(@RequestParam String title,@RequestParam String anons,@RequestParam String text, Model model) {
+
+        public String addtext1(@RequestParam String title,@RequestParam String anons,@RequestParam String text, Model model) {
             Post post = new Post(title,anons,text);
             postRepo.save(post);
             return "redirect:/main";
@@ -57,4 +59,35 @@
             return "more";
 
         }
+        @GetMapping("/main/{id}/delete")
+        public String Del(@PathVariable(value = "id") long id, Model model) {
+        Post post = postRepo.findById(id).orElseThrow();
+        postRepo.delete(post);
+            return "redirect:/main";
+
+        }
+        @GetMapping("/main/{id}/update")
+        public String UPDtext(@PathVariable(value = "id") long id,Model model) {
+            if(!postRepo.existsById(id)){
+                return "redirect:/main";
+            }
+            Optional<Post> pst = postRepo.findById(id);
+            ArrayList<Post>res = new ArrayList<>();
+            pst.ifPresent(res::add);
+            model.addAttribute("post",res);
+            return "update";
+
+        }
+        @PostMapping("/main/{id}/update")
+        public String Upd(@PathVariable(value = "id") long id, Model model,@RequestParam String title,@RequestParam String anons,@RequestParam String text ) {
+            Post post = postRepo.findById(id).orElseThrow();
+            post.setTitle(title);
+            post.setAnons(anons);
+            post.setText(text);
+            postRepo.save(post);
+            model.addAttribute("post",model);
+            return "redirect:/main" ;
+
+        }
+
     }

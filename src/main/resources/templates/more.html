@@ -12,8 +12,10 @@
     <div th:each ="t: ${post} "class="alert alert-info">
         <h3 th:text="${t.title}"></h3>
         <p th:text="${t.text}"></p>
-        <a th:href="'/blog/'+${t.id}+'/delete'" class="btn btn-danger">Delete</a>
-        <a th:href="'/blog/'+${t.id}+'/update'" class="btn btn-success">Update</a>
+        <form th:action="'/main'+${t.id}+'delete'">
+        <a th:href="'/main/'+${t.id}+'/delete'" class="btn btn-danger">Delete</a>
+        </form>
+        <a th:href="'/main/'+${t.id}+'/update'" class="btn btn-success">Update</a>
     </div>
 
 </div>
